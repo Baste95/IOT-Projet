@@ -1,0 +1,54 @@
+.main_header{
+    background: #036BA1;
+    color: #ffffff;
+    text-align: center;
+    font-style: italic;
+    font-size: 38px;
+}
+/** BODY **/
+
+body{
+    background-color: #EAEFF0;
+}
+.temps_info{
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px 10px 0 5px;
+}
+.temps_info .temperature  {
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+}
+.temps_info .temperature .degres{
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+}
+
+.degres{
+    font-size: 40px;
+    text-align: center;
+    border-radius: 5px 10px 0 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+/** FOOTER**/
+.footer{
+    background: #2E3546;
+    font-size: 18px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+   z-index: 1;
+}
+.github {
+    width:70px;
+    clip-path:ellipse(50% 50%);
+    grid-column: 3;
+    grid-row: 4;
+ }

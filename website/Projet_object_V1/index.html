@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>Projet Objet-Connecté</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Work+Sans:400,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    </head>
+
+    <body>
+             
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+        <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBhcXc56MORfBHuPRO0mcpGCInJ0V5-OKU",
+            authDomain: "iot-capteur-meteo-pollution.firebaseapp.com",
+            databaseURL: "https://iot-capteur-meteo-pollution.firebaseio.com",
+            projectId: "iot-capteur-meteo-pollution",
+            storageBucket: "iot-capteur-meteo-pollution.appspot.com",
+            messagingSenderId: "449975041519",
+            appId: "1:449975041519:web:6972f27c05e92026b2ca1a",
+            measurementId: "G-YMFXYDXR60"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+/*
+        function getData_temperat(){
+            var i = 0;
+            firebase.database().ref('data').once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                   
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();   
+                    document.getElementById('data_temperat').innerHTML += "<br>"+
+                    "<b><i class='fa fa-temperature-low'></i>Température" + i + ": </b>" 
+                     + childData['temperatue'] + "°" +"<br>";
+
+                })
+            })
+            
+        }
+        getData_temperat();
+
+        function getData_pression(){
+            var i = 0;
+            firebase.database().ref('data').once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                 
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();   
+                    document.getElementById('data_pressure').innerHTML += "<br>"+
+                    "<b><i class='fa fa-cloud-rain'></i> Pression " + i + ": </b>" 
+                     + childData['pressure']  +"<br>";
+
+                })
+            })
+            
+        }
+        getData_pression();
+
+        function getData_Humidity(){
+            var i = 0;
+            firebase.database().ref('data').once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                 
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();   
+                    document.getElementById('data_humidity').innerHTML += "<br>"+
+                    "<b><i class='fa fa-water'></i> Humidité " + i + ": </b>" 
+                     + childData['humidity']  +"<br>";
+
+                })
+            })
+            
+        }
+        getData_Humidity();
+
+        function getData_Time(id){
+            var i = 0;
+            if(id === "time"){
+            firebase.database().ref('time').once('value',function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();   
+                    document.getElementById('data_time').innerHTML += "<br>"+
+                    "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
+                    childData
+                     +"<br>";
+
+                })
+            })
+            
+        }
+      }*/
+
+      function get_Data(id){
+        let i = 0;
+        switch(id){
+          case 'time': 
+                      firebase.database().ref('time').once('value',function(snapshot) {
+                        snapshot.forEach(function(childSnapshot){
+                            i++;
+                            var childKey = childSnapshot.key;
+                            var childData = childSnapshot.val();   
+                            document.getElementById('data_time').innerHTML += "<br>"+
+                            "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
+                            childData
+                            +"<br>";
+
+                        })
+                    })
+                    return;
+                    break;
+
+          case 'temperature':
+                  firebase.database().ref('data').once('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot){
+                        i++;
+                      
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();   
+                        document.getElementById('data_temperat').innerHTML += "<br>"+
+                        "<b><i class='fa fa-temperature-low'></i>Température" + i + ": </b>" 
+                        + childData['temperatue'] + "°" +"<br>";
+
+                    })
+                })
+                break;
+                    
+
+        }
+      }
+        </script>
+        
+        <header class="main_header">
+           <nav>
+            <p id="title_page">Projet Objets Connectés 2020 - 2021 </p>
+           </nav>
+        </header>
+        <section>
+          <div class="temps_info">
+              <div class="temperature">
+                  
+                  <img src="png/039-sun.png">
+                  <div class="degres">
+                    <p>27.5 °C</p>
+                  </div>
+                   
+              
+                  
+                  
+                  <script>
+                    
+                  </script>
+              </div>
+              <div class="humidité">
+               
+              </div>
+              <div class="pression">
+                </div>
+              <div class="pollution">
+             
+              </div>
+          </div>
+         
+        </section>
+        
+        <footer class="footer">
+          <p>Projet réalisé par PELMARD Bastien et SOOKUN Naushad-Ali</p>
+          <a href="http://www.github.com"><img class="github"src="github.png"/></a>
+        </div>
+        
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+
+
+</html>

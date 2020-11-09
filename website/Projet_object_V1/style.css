@@ -4,7 +4,24 @@
     text-align: center;
     font-style: italic;
     font-size: 38px;
+    width: 100%;
+    position: fixed;
 }
+
+.header{
+   
+    background-color: #036BA1;
+   
+    width: 100%;
+   z-index: 1;
+}
+
+.header .description{
+    text-align: center;
+    font-style: italic;
+    color: white;
+}
+
 /** BODY **/
 
 body{
@@ -12,43 +29,220 @@ body{
 }
 .temps_info{
     display: flex;
-    flex-direction: row;
-    border-radius: 5px 10px 0 5px;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 55px auto 0;
+    max-width: 1300px;
+    
+  
+   
 }
-.temps_info .temperature  {
+
+.print_time{
+    font-size: 12px;
+}
+
+.graph{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 55px auto 0;
+    max-width: 1300px;
+}
+
+.time_maj{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 55px auto 0;
+    max-width: 1300px;
+  
+
+    
+}
+/** TEMPERATURE **/
+.temperature  {
 	max-width: 100%;
     height: auto;
     background-color: white;
     border-radius: 5px 10px 0 5px;
+    /*
+    margin-left: 55px;
+    margin-top: 105px;
+   
+    padding-left: 25px;
+    
+    padding-top: 10px;
+    */
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-left: 55px;
+    margin-top: 55px;
+   
 }
 .temps_info .temperature .degres{
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 10px 5px;
+}
+
+.temps_info .temperature .icon1{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.degres{
+    font-size: 25px;
+    text-align: center;
+    padding-top: 30px;
+    border-radius: 5px 10px 10px 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+/** HUMIDITE **/
+.humidité  {
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-left: 55px;
+    margin-top: 55px;
+    /*
+    margin-left: 155px;
+    margin-top: 105px;
+    /*
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    */
+}
+
+.temps_info .humidité .pourcentage{
 	max-width: 100%;
     height: auto;
     background-color: white;
     border-radius: 5px 10px 0 5px;
 }
 
-.degres{
-    font-size: 40px;
+.temps_info .humidité .icon2{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.pourcentage{
+    font-size: 25px;
     text-align: center;
     border-radius: 5px 10px 0 5px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    padding-top: 30px;
 }
+/** PRESSION **/
+.pression  {
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-left: 55px;
+    margin-top: 55px;
+    /*
+    margin-left: 155px;
+    margin-top: 105px;
+    /*
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    */
+}
+
+.temps_info .pression .hpa{
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+}
+
+.temps_info .pression .icon3{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+.hpa{
+    font-size: 25px;
+    text-align: center;
+    border-radius: 5px 10px 0 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 30px;
+    
+}
+/** POLLUTION **/
+ .pollution  {
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-left: 55px;
+    margin-top: 55px;
+    /*
+    margin-left: 155px;
+    margin-top: 105px;
+    /*
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    */
+}
+
+.temps_info .pollution .ppm{
+	max-width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px 10px 0 5px;
+}
+
+.temps_info .pollution .icon4{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+.ppm{
+    font-size: 25px;
+    text-align: center;
+    border-radius: 5px 10px 0 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 30px;
+}
+
 /** FOOTER**/
 .footer{
     background: #2E3546;
     font-size: 18px;
     color: #ffffff;
-    position: fixed;
+  position: fixed;
     bottom: 0;
     width: 100%;
-   z-index: 1;
+  
 }
 .github {
     width:70px;
     clip-path:ellipse(50% 50%);
     grid-column: 3;
     grid-row: 4;
+    margin-left: 10px;
  }
+

@@ -107,6 +107,33 @@
         }
       }*/
 
+     
+      function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat)
+        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+      }
+      
+
+      function getData_time(){
+        firebase.database().ref('time').once('value',function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+           
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            let date = new Date(childData);
+            date = date.toLocaleString();
+           
+           
+            document.getElementById('data_time').innerHTML = "<br>"+ "Dernière Mise à jour : " + date   +"<br>";
+           
+         
+          })
+        })
+      }
+
+      getData_time();
+
       function get_Data(id){
         let i = 0;
         switch(id){
@@ -120,6 +147,7 @@
                             "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
                             childData
                             +"<br>";
+                            
 
                         })
                     })
@@ -132,56 +160,166 @@
                         i++;
                       
                         var childKey = childSnapshot.key;
-                        var childData = childSnapshot.val();   
-                        document.getElementById('data_temperat').innerHTML += "<br>"+
-                        "<b><i class='fa fa-temperature-low'></i>Température" + i + ": </b>" 
-                        + childData['temperatue'] + "°" +"<br>";
+                        var childData = childSnapshot.val(); 
+                       
+                       // console.log(childData['temperatue']);
+                        document.getElementById('data_temperat').innerHTML =  
+                        +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
+                        
+                        
 
                     })
                 })
+                firebase.database().ref('data').once('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot){
+                        i++;
+                      
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val(); 
+                       
+                       // console.log(childData['temperatue']);
+                        document.getElementById('test').innerHTML +=  
+                        +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
+                        
+                        
+
+                    })
+                })
+                
+
+
+                
+               
+
+              
+               
+
+                
+
+                
+                
+                                  
+                  
+              
+                   
+                    
+                 
+                  
+                
+                  
+               
+               
+                                    
                 break;
+              
+                case 'pression':
+                firebase.database().ref('data').once('value', function(snapshot) {
+                  snapshot.forEach(function(childSnapshot){
+                      i++;
+                    
+                      var childKey = childSnapshot.key;
+                      var childData = childSnapshot.val(); 
+                      
+                     
+                     // console.log(childData['temperatue']);
+                      document.getElementById('data_pression').innerHTML =  
+                      + Math.round(childData['pressure']*100)/100 + " hPA" +"<br>";
+                      
+
+                  })
+              })
+              break;
+            case 'humidite':
+              firebase.database().ref('data').once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                  
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val(); 
+                   
+                   // console.log(childData['temperatue']);
+                    document.getElementById('data_humidity').innerHTML =  
+                    + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
+                    
+
+                })
+            })
+            break;
                     
 
         }
+        
+      }
+
+      function mouseOver() {
+        document.getElementById("data_time").style.color = "red";
+      }
+      
+      function mouseOut() {
+        document.getElementById("data_time").style.color = "black";
       }
         </script>
         
-        <header class="main_header">
-           <nav>
-            <p id="title_page">Projet Objets Connectés 2020 - 2021 </p>
-           </nav>
-        </header>
-        <section>
+
+
+
+
+
+
+
+
+
+        <div class="header">
+          <div class="description">
+            <h1>Projet Objets Connectés 2020 - 2021 </h1>
+          </div>
+        </div>
+     
+          <div class="time_maj">
+            <div class="print_time">
+            <p id="data_time" onmouseover="mouseOver()" onmouseout="mouseOut()"></p>
+          </div>
+            
+          </div>
           <div class="temps_info">
-              <div class="temperature">
+              <div class="temperature" style="cursor:pointer" onclick="get_Data('temperature')">
                   
-                  <img src="png/039-sun.png">
+                  <img class="icon1" src="png/sun.png">
                   <div class="degres">
-                    <p>27.5 °C</p>
+                    <p id="data_temperat"></p>
                   </div>
-                   
-              
-                  
-                  
-                  <script>
-                    
-                  </script>
               </div>
+
               <div class="humidité">
-               
+               <img class= "icon2"src = "png/humidity.png" style="cursor:pointer" onclick="get_Data('humidite')">
+                <div class="pourcentage">
+                  <p id="data_humidity"></p>
+                </div>
               </div>
               <div class="pression">
+                <img class ="icon3" src ="png/barometer.png" style="cursor:pointer" onclick="get_Data('pression')">
+                  <div class="hpa">
+                    <p id="data_pression"></p>
+                  </div>
                 </div>
               <div class="pollution">
+                <img class="icon4" src="png/cloud.png">
+                  <div class="ppm">
+                    <p>415 ppm</p>
+                  </div>
              
               </div>
           </div>
+          <div class="graph" onclick="get_Data('temperature')">
+            <p id="test"></p>
+          </div>
+          
          
-        </section>
+       
         
         <footer class="footer">
           <p>Projet réalisé par PELMARD Bastien et SOOKUN Naushad-Ali</p>
-          <a href="http://www.github.com"><img class="github"src="github.png"/></a>
+          <a href="https://github.com/Baste95/IOT-Projet"><img class="github"src="github.png"/></a>
         </div>
         
 

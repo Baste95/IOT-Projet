@@ -33,79 +33,6 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
 
-/*
-        function getData_temperat(){
-            var i = 0;
-            firebase.database().ref('data').once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                   
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val();   
-                    document.getElementById('data_temperat').innerHTML += "<br>"+
-                    "<b><i class='fa fa-temperature-low'></i>Température" + i + ": </b>" 
-                     + childData['temperatue'] + "°" +"<br>";
-
-                })
-            })
-            
-        }
-        getData_temperat();
-
-        function getData_pression(){
-            var i = 0;
-            firebase.database().ref('data').once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                 
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val();   
-                    document.getElementById('data_pressure').innerHTML += "<br>"+
-                    "<b><i class='fa fa-cloud-rain'></i> Pression " + i + ": </b>" 
-                     + childData['pressure']  +"<br>";
-
-                })
-            })
-            
-        }
-        getData_pression();
-
-        function getData_Humidity(){
-            var i = 0;
-            firebase.database().ref('data').once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                 
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val();   
-                    document.getElementById('data_humidity').innerHTML += "<br>"+
-                    "<b><i class='fa fa-water'></i> Humidité " + i + ": </b>" 
-                     + childData['humidity']  +"<br>";
-
-                })
-            })
-            
-        }
-        getData_Humidity();
-
-        function getData_Time(id){
-            var i = 0;
-            if(id === "time"){
-            firebase.database().ref('time').once('value',function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val();   
-                    document.getElementById('data_time').innerHTML += "<br>"+
-                    "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
-                    childData
-                     +"<br>";
-
-                })
-            })
-            
-        }
-      }*/
 
      
       function convertDate(inputFormat) {
@@ -170,7 +97,9 @@
 
                     })
                 })
-                firebase.database().ref('data').once('value', function(snapshot) {
+                break;
+              case 'temperature_all':
+              firebase.database().ref('data').once('value', function(snapshot) {
                     snapshot.forEach(function(childSnapshot){
                         i++;
                       
@@ -178,38 +107,14 @@
                         var childData = childSnapshot.val(); 
                        
                        // console.log(childData['temperatue']);
-                        document.getElementById('test').innerHTML +=  
+                        document.getElementById('test').innerHTML +=  "valeur "+ i + " = "
                         +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
                         
                         
 
                     })
                 })
-                
-
-
-                
-               
-
               
-               
-
-                
-
-                
-                
-                                  
-                  
-              
-                   
-                    
-                 
-                  
-                
-                  
-               
-               
-                                    
                 break;
               
                 case 'pression':
@@ -229,6 +134,24 @@
                   })
               })
               break;
+
+              case 'pression_all':
+              firebase.database().ref('data').once('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot){
+                        i++;
+                      
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val(); 
+                       
+                       // console.log(childData['temperatue']);
+                        document.getElementById('test3').innerHTML +=   "valeur "+ i + " = "
+                        +  Math.round(childData['pressure']*100)/100 + "hPA" +"<br>";
+                        
+                        
+
+                    })
+                })
+                break;
             case 'humidite':
               firebase.database().ref('data').once('value', function(snapshot) {
                 snapshot.forEach(function(childSnapshot){
@@ -239,6 +162,22 @@
                    
                    // console.log(childData['temperatue']);
                     document.getElementById('data_humidity').innerHTML =  
+                    + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
+                    
+
+                })
+            })
+            break;
+            case 'humidite_all':
+              firebase.database().ref('data').once('value', function(snapshot) {
+                snapshot.forEach(function(childSnapshot){
+                    i++;
+                  
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val(); 
+                   
+                   // console.log(childData['temperatue']);
+                    document.getElementById('test2').innerHTML +=   "valeur "+ i + " = "
                     + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
                     
 
@@ -258,6 +197,14 @@
       function mouseOut() {
         document.getElementById("data_time").style.color = "black";
       }
+
+      function print_data(){
+        get_Data('temperature');
+        get_Data('pression');
+        get_Data('humidite');
+      }
+
+      print_data();
         </script>
         
 
@@ -282,7 +229,7 @@
             
           </div>
           <div class="temps_info">
-              <div class="temperature" style="cursor:pointer" onclick="get_Data('temperature')">
+              <div class="temperature" style="cursor:pointer">
                   
                   <img class="icon1" src="png/sun.png">
                   <div class="degres">
@@ -291,13 +238,13 @@
               </div>
 
               <div class="humidité">
-               <img class= "icon2"src = "png/humidity.png" style="cursor:pointer" onclick="get_Data('humidite')">
+               <img class= "icon2"src = "png/humidity.png" style="cursor:pointer">
                 <div class="pourcentage">
                   <p id="data_humidity"></p>
                 </div>
               </div>
               <div class="pression">
-                <img class ="icon3" src ="png/barometer.png" style="cursor:pointer" onclick="get_Data('pression')">
+                <img class ="icon3" src ="png/barometer.png" style="cursor:pointer">
                   <div class="hpa">
                     <p id="data_pression"></p>
                   </div>
@@ -310,14 +257,30 @@
              
               </div>
           </div>
-          <div class="graph" onclick="get_Data('temperature')">
-            <p id="test"></p>
+          <div class="graph">
+
+                <div class ="all"onclick="get_Data('temperature_all')">
+                  <button label ="temperature">Temperature </button>
+                    <p id="test"><p>
+                 
+                </div>
+                  <div class ="all" onclick="get_Data('humidite_all')">
+                    <button label ="Humidité">Humidité </button>
+                      <p id="test2"><p>
+                     
+                  </div>
+
+                  <div class="all" onclick="get_Data('pression_all')">
+                    <button label ="pression">Pression </button>
+                      <p id="test3"><p>
+                     
+                  </div>
           </div>
           
          
        
         
-        <footer class="footer">
+        <div class="footer">
           <p>Projet réalisé par PELMARD Bastien et SOOKUN Naushad-Ali</p>
           <a href="https://github.com/Baste95/IOT-Projet"><img class="github"src="github.png"/></a>
         </div>

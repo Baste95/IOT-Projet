@@ -48,6 +48,8 @@ body{
     width: 80%;
     margin: 55px auto 0;
     max-width: 1300px;
+    
+  
 }
 
 .time_maj{
@@ -65,7 +67,7 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     /*
     margin-left: 55px;
     margin-top: 105px;
@@ -84,20 +86,21 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 10px 5px;
+    border-radius: 5%;
 }
 
 .temps_info .temperature .icon1{
     display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto;
+    margin-top: 20%;
 }
 
 .degres{
     font-size: 25px;
     text-align: center;
     padding-top: 30px;
-    border-radius: 5px 10px 10px 5px;
+    border-radius: 5%;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -107,7 +110,7 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     padding-right: 50px;
     padding-left: 50px;
     margin-left: 55px;
@@ -126,13 +129,14 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
 }
 
 .temps_info .humidité .icon2{
     display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto ;
+    margin-top: 20%;
 }
 
 .pourcentage{
@@ -149,7 +153,7 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     padding-right: 50px;
     padding-left: 50px;
     margin-left: 55px;
@@ -168,18 +172,19 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
 }
 
 .temps_info .pression .icon3{
     display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto;
+    margin-top: 20%;
 }
 .hpa{
     font-size: 25px;
     text-align: center;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -191,7 +196,7 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     padding-right: 50px;
     padding-left: 50px;
     margin-left: 55px;
@@ -210,22 +215,41 @@ body{
 	max-width: 100%;
     height: auto;
     background-color: white;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
 }
 
 .temps_info .pollution .icon4{
     display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto;
+    margin-top: 20%;
 }
 .ppm{
     font-size: 25px;
     text-align: center;
-    border-radius: 5px 10px 0 5px;
+    border-radius: 5%;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
     padding-top: 30px;
+}
+.all{
+    max-width: 100%;
+    height: auto;
+   
+    border-radius: 5%;
+    /*
+    margin-left: 55px;
+    margin-top: 105px;
+   
+    padding-left: 25px;
+    
+    padding-top: 10px;
+    */
+    padding-right: 70px;
+    padding-left: 70px;
+    margin-left: 55px;
+    margin-top: 55px;
 }
 
 /** FOOTER**/
@@ -233,16 +257,21 @@ body{
     background: #2E3546;
     font-size: 18px;
     color: #ffffff;
-  position: fixed;
-    bottom: 0;
     width: 100%;
+   z-index: 0;
+   bottom: 0;
+   margin-top: 250px;
+   
+    
+    
   
 }
 .github {
-    width:70px;
+    width:55px;
     clip-path:ellipse(50% 50%);
-    grid-column: 3;
-    grid-row: 4;
-    margin-left: 10px;
+   
+	vertical-align:bottom;
+	visibility:visible;
+    
  }
 

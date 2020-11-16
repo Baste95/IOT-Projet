@@ -67,7 +67,7 @@ void setup() {
     //tiny, small, medium, large and unlimited.
     //Size and its write timeout e.g. tiny (1s), small (10s), medium (30s) and large (60s).
     Firebase.setwriteSizeLimit(firebaseData, "tiny");
-    delayTime = 10000;
+    delayTime = 900000;
 
     Serial.println();
 }

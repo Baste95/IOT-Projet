@@ -9,212 +9,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style.css">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
     </head>
 
     <body>
              
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
-
-        <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        var firebaseConfig = {
-            apiKey: "AIzaSyBhcXc56MORfBHuPRO0mcpGCInJ0V5-OKU",
-            authDomain: "iot-capteur-meteo-pollution.firebaseapp.com",
-            databaseURL: "https://iot-capteur-meteo-pollution.firebaseio.com",
-            projectId: "iot-capteur-meteo-pollution",
-            storageBucket: "iot-capteur-meteo-pollution.appspot.com",
-            messagingSenderId: "449975041519",
-            appId: "1:449975041519:web:6972f27c05e92026b2ca1a",
-            measurementId: "G-YMFXYDXR60"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-
-
-     
-      function convertDate(inputFormat) {
-        function pad(s) { return (s < 10) ? '0' + s : s; }
-        var d = new Date(inputFormat)
-        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
-      }
-      
-
-      function getData_time(){
-        firebase.database().ref('time').once('value',function(snapshot){
-          snapshot.forEach(function(childSnapshot){
-           
-            var childKey = childSnapshot.key;
-            var childData = childSnapshot.val();
-            let date = new Date(childData);
-            date = date.toLocaleString();
-           
-           
-            document.getElementById('data_time').innerHTML = "<br>"+ "Dernière Mise à jour : " + date   +"<br>";
-           
-         
-          })
-        })
-      }
-
-      getData_time();
-
-      function get_Data(id){
-        let i = 0;
-        switch(id){
-          case 'time': 
-                      firebase.database().ref('time').once('value',function(snapshot) {
-                        snapshot.forEach(function(childSnapshot){
-                            i++;
-                            var childKey = childSnapshot.key;
-                            var childData = childSnapshot.val();   
-                            document.getElementById('data_time').innerHTML += "<br>"+
-                            "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
-                            childData
-                            +"<br>";
-                            
-
-                        })
-                    })
-                    return;
-                    break;
-
-          case 'temperature':
-                  firebase.database().ref('data').once('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot){
-                        i++;
-                      
-                        var childKey = childSnapshot.key;
-                        var childData = childSnapshot.val(); 
-                       
-                       // console.log(childData['temperatue']);
-                        document.getElementById('data_temperat').innerHTML =  
-                        +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
-                        
-                        
-
-                    })
-                })
-                break;
-              case 'temperature_all':
-              firebase.database().ref('data').once('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot){
-                        i++;
-                      
-                        var childKey = childSnapshot.key;
-                        var childData = childSnapshot.val(); 
-                       
-                       // console.log(childData['temperatue']);
-                        document.getElementById('test').innerHTML +=  "valeur "+ i + " = "
-                        +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
-                        
-                        
-
-                    })
-                })
-              
-                break;
-              
-                case 'pression':
-                firebase.database().ref('data').once('value', function(snapshot) {
-                  snapshot.forEach(function(childSnapshot){
-                      i++;
-                    
-                      var childKey = childSnapshot.key;
-                      var childData = childSnapshot.val(); 
-                      
-                     
-                     // console.log(childData['temperatue']);
-                      document.getElementById('data_pression').innerHTML =  
-                      + Math.round(childData['pressure']*100)/100 + " hPA" +"<br>";
-                      
-
-                  })
-              })
-              break;
-
-              case 'pression_all':
-              firebase.database().ref('data').once('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot){
-                        i++;
-                      
-                        var childKey = childSnapshot.key;
-                        var childData = childSnapshot.val(); 
-                       
-                       // console.log(childData['temperatue']);
-                        document.getElementById('test3').innerHTML +=   "valeur "+ i + " = "
-                        +  Math.round(childData['pressure']*100)/100 + "hPA" +"<br>";
-                        
-                        
-
-                    })
-                })
-                break;
-            case 'humidite':
-              firebase.database().ref('data').once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                  
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val(); 
-                   
-                   // console.log(childData['temperatue']);
-                    document.getElementById('data_humidity').innerHTML =  
-                    + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
-                    
-
-                })
-            })
-            break;
-            case 'humidite_all':
-              firebase.database().ref('data').once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot){
-                    i++;
-                  
-                    var childKey = childSnapshot.key;
-                    var childData = childSnapshot.val(); 
-                   
-                   // console.log(childData['temperatue']);
-                    document.getElementById('test2').innerHTML +=   "valeur "+ i + " = "
-                    + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
-                    
-
-                })
-            })
-            break;
-                    
-
-        }
-        
-      }
-
-      function mouseOver() {
-        document.getElementById("data_time").style.color = "red";
-      }
-      
-      function mouseOut() {
-        document.getElementById("data_time").style.color = "black";
-      }
-
-      function print_data(){
-        get_Data('temperature');
-        get_Data('pression');
-        get_Data('humidite');
-      }
-
-      print_data();
-        </script>
-        
-
-
-
-
-
-
-
-
 
         <div class="header">
           <div class="description">
@@ -276,6 +78,21 @@
                      
                   </div>
           </div>
+
+          <div class="chart">
+            <div class="header-chart">
+              <span>Température</span>
+              <select name="date-temparature1" id="date-temparature1">
+              </select>
+              <select name="date-temparature2" id="date-temparature2">
+              </select>
+            </div>
+
+            <div class="graph-chart">
+              <canvas id="chart-temperature" width="100%" height="40%"></canvas>
+            </div>
+           
+          </div>
           
          
        
@@ -284,6 +101,230 @@
           <p>Projet réalisé par PELMARD Bastien et SOOKUN Naushad-Ali</p>
           <a href="https://github.com/Baste95/IOT-Projet"><img class="github"src="github.png"/></a>
         </div>
+
+        <script>
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          var firebaseConfig = {
+              apiKey: "AIzaSyBhcXc56MORfBHuPRO0mcpGCInJ0V5-OKU",
+              authDomain: "iot-capteur-meteo-pollution.firebaseapp.com",
+              databaseURL: "https://iot-capteur-meteo-pollution.firebaseio.com",
+              projectId: "iot-capteur-meteo-pollution",
+              storageBucket: "iot-capteur-meteo-pollution.appspot.com",
+              messagingSenderId: "449975041519",
+              appId: "1:449975041519:web:6972f27c05e92026b2ca1a",
+              measurementId: "G-YMFXYDXR60"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+  
+          let dataTime = [];
+          let dataTemperature = [];
+  
+        function convertDate(inputFormat) {
+          function pad(s) { return (s < 10) ? '0' + s : s; }
+          var d = new Date(inputFormat)
+          return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+        }
+        
+  
+        function getData_time(){
+          firebase.database().ref('time').once('value',function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+             
+              var childKey = childSnapshot.key;
+              var childData = childSnapshot.val();
+              let date = new Date(childData);
+              date = date.toLocaleString();
+              dataTime.push(date);
+             
+              document.getElementById('data_time').innerHTML = "<br>"+ "Dernière Mise à jour : " + date   +"<br>";
+             
+           
+            })
+          })
+        }
+  
+        getData_time();
+  
+        function get_Data(id){
+          let i = 0;
+          switch(id){
+            case 'time': 
+                        firebase.database().ref('time').once('value',function(snapshot) {
+                          snapshot.forEach(function(childSnapshot){
+                              i++;
+                              var childKey = childSnapshot.key;
+                              var childData = childSnapshot.val();   
+                              document.getElementById('data_time').innerHTML += "<br>"+
+                              "<b><i class='fa fa-clock'></i> Temps " + i + ": </b>" +
+                              childData
+                              +"<br>";
+                              
+  
+                          })
+                      })
+                      return;
+                      break;
+  
+            case 'temperature':
+                    firebase.database().ref('data').once('value', function(snapshot) {
+                      snapshot.forEach(function(childSnapshot){
+                          i++;
+                        
+                          var childKey = childSnapshot.key;
+                          var childData = childSnapshot.val(); 
+                         
+                         dataTemperature.push(childData['temperatue']);
+                          document.getElementById('data_temperat').innerHTML =  
+                          +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
+                          
+                          
+  
+                      })
+                  })
+                  break;
+                case 'temperature_all':
+                firebase.database().ref('data').once('value', function(snapshot) {
+                      snapshot.forEach(function(childSnapshot){
+                          i++;
+                        
+                          var childKey = childSnapshot.key;
+                          var childData = childSnapshot.val(); 
+                         
+                         // console.log(childData['temperatue']);
+                          document.getElementById('test').innerHTML +=  "valeur "+ i + " = "
+                          +  Math.round(childData['temperatue']*100)/100 + "°" +"<br>";
+                          
+                          
+  
+                      })
+                  })
+                
+                  break;
+                
+                  case 'pression':
+                  firebase.database().ref('data').once('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot){
+                        i++;
+                      
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val(); 
+                        
+                       
+                       // console.log(childData['temperatue']);
+                        document.getElementById('data_pression').innerHTML =  
+                        + Math.round(childData['pressure']*100)/100 + " hPA" +"<br>";
+                        
+  
+                    })
+                })
+                break;
+  
+                case 'pression_all':
+                firebase.database().ref('data').once('value', function(snapshot) {
+                      snapshot.forEach(function(childSnapshot){
+                          i++;
+                        
+                          var childKey = childSnapshot.key;
+                          var childData = childSnapshot.val(); 
+                         
+                         // console.log(childData['temperatue']);
+                          document.getElementById('test3').innerHTML +=   "valeur "+ i + " = "
+                          +  Math.round(childData['pressure']*100)/100 + "hPA" +"<br>";
+                          
+                          
+  
+                      })
+                  })
+                  break;
+              case 'humidite':
+                firebase.database().ref('data').once('value', function(snapshot) {
+                  snapshot.forEach(function(childSnapshot){
+                      i++;
+                    
+                      var childKey = childSnapshot.key;
+                      var childData = childSnapshot.val(); 
+                     
+                     // console.log(childData['temperatue']);
+                      document.getElementById('data_humidity').innerHTML =  
+                      + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
+                      
+  
+                  })
+              })
+              break;
+              case 'humidite_all':
+                firebase.database().ref('data').once('value', function(snapshot) {
+                  snapshot.forEach(function(childSnapshot){
+                      i++;
+                    
+                      var childKey = childSnapshot.key;
+                      var childData = childSnapshot.val(); 
+                     
+                     // console.log(childData['temperatue']);
+                      document.getElementById('test2').innerHTML +=   "valeur "+ i + " = "
+                      + Math.round(childData['humidity']*100)/100 + " %" +"<br>";
+                      
+  
+                  })
+              })
+              break;
+                      
+  
+          }
+          draw_graph();
+        }
+  
+        function mouseOver() {
+          document.getElementById("data_time").style.color = "red";
+        }
+        
+        function mouseOut() {
+          document.getElementById("data_time").style.color = "black";
+        }
+  
+        function print_data(){
+          get_Data('temperature');
+          get_Data('pression');
+          get_Data('humidite');
+        }
+  
+        function draw_graph(){
+          var ctx = document.getElementById('chart-temperature').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: dataTime,
+              datasets: [{
+                          label: "Température",
+                          data: dataTemperature,
+                        }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+  
+          /*console.log(dataTemperature);
+          console.log(dataTime);*/
+  
+        }
+  
+        function optionsSelect(){
+  
+        }
+  
+        print_data();
+        
+        </script>
         
 
 

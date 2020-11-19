@@ -5,6 +5,7 @@
 #include <FirebaseESP32.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+#include <MQ135.h>
 
 // Define
 #define BME_SCK 13
@@ -22,6 +23,8 @@ Adafruit_BME280 bme; // I2C
 FirebaseData firebaseData;
 FirebaseJson json;
 FirebaseJson json2;
+const int mq135Pin = 32;     // Pin sur lequel est branché de MQ135
+MQ135 gasSensor = MQ135(mq135Pin);  // Initialise l'objet MQ135 sur le Pin spécifié
 
 unsigned long delayTime;
 
@@ -29,6 +32,10 @@ void setup() {
     Serial.begin(115200);
     while(!Serial);    // time to get serial running
     Serial.println(F("BME280 test"));
+
+    float rzero = gasSensor.getRZero();
+    Serial.print("R0: ");
+    Serial.println(rzero);
 
     unsigned status;
     
@@ -67,6 +74,7 @@ void setup() {
     //tiny, small, medium, large and unlimited.
     //Size and its write timeout e.g. tiny (1s), small (10s), medium (30s) and large (60s).
     Firebase.setwriteSizeLimit(firebaseData, "tiny");
+    
     delayTime = 900000;
 
     Serial.println();
@@ -74,37 +82,30 @@ void setup() {
 
 
 void loop() { 
+
+    float ppm = gasSensor.getPPM();
     float temp = bme.readTemperature();
     float hum = bme.readHumidity();
     float pres = bme.readPressure() / 100.0F;
+    
+
+    Serial.print("A0: ");
+    Serial.print(analogRead(mq135Pin));
+    Serial.print(" ppm CO2: ");
+    Serial.println(ppm);
+    Serial.print("temp: ");
+    Serial.println(temp);
+    Serial.print("humd: ");
+    Serial.println(hum);
+    Serial.print("press: ");
+    Serial.println(pres);
+    
     json.set("temperatue", temp);
     json.set("humidity", hum);
     json.set("pressure", pres);
-    //json2.set(cstr, json);
+    json.set("co2", ppm);
     Firebase.pushJSON(firebaseData,"/data",json);
     Firebase.pushTimestamp(firebaseData, "/time");
     
     delay(delayTime);
-}
-
-
-void printValues() {
-    Serial.print("Temperature = ");
-    Serial.print(bme.readTemperature());
-    Serial.println(" *C");
-
-    Serial.print("Pressure = ");
-
-    Serial.print(bme.readPressure() / 100.0F);
-    Serial.println(" hPa");
-
-    Serial.print("Approx. Altitude = ");
-    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    Serial.println(" m");
-
-    Serial.print("Humidity = ");
-    Serial.print(bme.readHumidity());
-    Serial.println(" %");
-
-    Serial.println();
 }
